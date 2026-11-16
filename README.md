@@ -85,25 +85,29 @@ The program prefers the machine's OpenSSL SM3 implementation for speed. Before e
 ## 四、目录结构 / Repository Structure
 
 ```
-SM3-IVChain-DP/
-├── run.py                 程序入口（UI / --cli / --selftest）/ entry point (GUI / --cli / --selftest)
-├── README.md              双语说明 / bilingual README
-├── 参考实现_使用说明.md     完整使用说明 / full usage notes (Chinese)
-└── sm3ivc/
-    ├── sm3.py             SM3(GB/T 32905-2016) 与 HMAC-SM3，双后端 / dual-backend SM3 & HMAC-SM3
-    ├── codec.py           ∥ 的单射编码、向量打包 / injective ∥ encoding, vector packing
-    ├── chain.py           信标链、交织双链、验证方、MEC 锚定 / beacon chain, interwoven dual chains, verifier, MEC anchoring
-    ├── sensitivity.py     式4–6，性质1 / Eqs. 4–6, Property 1
-    ├── policy.py          式7，命题1，3.3 决策规则 / Eq. 7, Proposition 1, §3.3 decision rules
-    ├── dp.py              式8–14（核心发明点）/ Eqs. 8–14 (core invention)
-    ├── layered.py         式15–16，定理8 / Eqs. 15–16, Thm 8
-    ├── budget.py          式17–21，水填充与预算会计 / Eqs. 17–21, water-filling & budget accounting
-    ├── shamir.py          Shamir(t,n) 门限秘密分享 / threshold secret sharing
-    ├── audit.py           门限追责审计，定理7 / threshold accountability audit, Thm 7
-    ├── detect.py          四通道检测，式22–23 / four-channel detection, Eqs. 22–23
-    ├── simulator.py       车—路—边—云端到端仿真 / vehicle–road–edge–cloud simulation
-    ├── selftest.py        36 项公式与定理验证 / 36 formula & theorem self-tests
-    └── ui.py              Tkinter 图形界面 / Tkinter GUI
+SM3-IVChain-DP/  (仓库根目录 / repo root)
+├── README.md                双语说明（本文件）/ bilingual README (this file)
+├── 参考实现_使用说明.md       完整使用说明（中文）/ full usage notes (Chinese)
+├── SM3交织哈希链协同安全系统_参考实现_v1.0.zip
+├── .gitignore
+└── SM3-IVChain-DP/
+    ├── run.py               程序入口（UI / --cli / --selftest）/ entry point (GUI / --cli / --selftest)
+    ├── README.md
+    └── sm3ivc/
+        ├── sm3.py             SM3(GB/T 32905-2016) 与 HMAC-SM3，双后端 / dual-backend SM3 & HMAC-SM3
+        ├── codec.py           ∥ 的单射编码、向量打包 / injective ∥ encoding, vector packing
+        ├── chain.py           信标链、交织双链、验证方、MEC 锚定 / beacon chain, interwoven dual chains, verifier, MEC anchoring
+        ├── sensitivity.py     式4–6，性质1 / Eqs. 4–6, Property 1
+        ├── policy.py          式7，命题1，3.3 决策规则 / Eq. 7, Proposition 1, §3.3 decision rules
+        ├── dp.py              式8–14（核心发明点）/ Eqs. 8–14 (core invention)
+        ├── layered.py         式15–16，定理8 / Eqs. 15–16, Thm 8
+        ├── budget.py          式17–21，水填充与预算会计 / Eqs. 17–21, water-filling & budget accounting
+        ├── shamir.py          Shamir(t,n) 门限秘密分享 / threshold secret sharing
+        ├── audit.py           门限追责审计，定理7 / threshold accountability audit, Thm 7
+        ├── detect.py          四通道检测，式22–23 / four-channel detection, Eqs. 22–23
+        ├── simulator.py       车—路—边—云端到端仿真 / vehicle–road–edge–cloud simulation
+        ├── selftest.py        36 项公式与定理验证 / 36 formula & theorem self-tests
+        └── ui.py              Tkinter 图形界面 / Tkinter GUI
 ```
 
 ---
