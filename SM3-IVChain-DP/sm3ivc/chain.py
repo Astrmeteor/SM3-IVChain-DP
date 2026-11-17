@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""实施例一：信标锚定的 SM3 交织双链。
+"""信标锚定的 SM3 交织双链。
 
 实现公式：
     式1  R_τ   = SM3(R_{τ−1} ∥ τ ∥ ID_RSU ∥ nonce_τ)
@@ -67,7 +67,7 @@ class BeaconChain:
         return self.beacons[epoch].value == value
 
     def anchor_to_mec(self, mec) -> bytes:
-        """将信标链链头逐层锚定至 MEC（说明书 1.1 节）。"""
+        """将信标链链头逐层锚定至 MEC（设计文档 1.1 节）。"""
         self.anchors.append((self.epoch, self.head))
         return mec.anchor(self.rsu_id, self.epoch, self.head)
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""实施例二：敏感度量化与隐私预算上限映射。
+"""敏感度量化与隐私预算上限映射。
 
     式4  S_raw = w_T·φ_T + w_L·φ_L + w_P·φ_P + w_C·φ_C，  S = min(⌊S_raw⌋, 3)
     式5  ε̄(S) = ε₀·e^(−λS)
@@ -12,7 +12,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-# φ_T：数据类型基础敏感分（说明书 2.1 节）
+# φ_T：数据类型基础敏感分（设计文档 2.1 节）
 PHI_T_TABLE = {
     "天气": 0, "路况": 0, "公开交通流统计": 0,
     "车速": 1, "车辆状态": 1, "聚合位置": 1,

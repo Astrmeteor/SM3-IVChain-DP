@@ -248,7 +248,7 @@ class App(tk.Tk):
         self.v_audit = self.field(g, "抽检率", 0.20, row=6, col=1)
         self.v_thcos = self.field(g, "θ_c (0=自动)", 0.0, row=7, col=0)
         self.v_budget = self.field(g, "总预算 ε", 100.0, row=7, col=1)
-        tk.Label(g, text="θ_c 填 0 按 z_α/√d 自动标定（α=5%）；填 0.1 复现说明书固定阈值",
+        tk.Label(g, text="θ_c 填 0 按 z_α/√d 自动标定（α=5%）；填 0.1 复现固定阈值",
                  bg=BG, fg="#666", font=(self.FONT, 8), wraplength=300,
                  justify="left").grid(row=8, column=0, columnspan=4,
                                       sticky="w", padx=8, pady=(2, 4))

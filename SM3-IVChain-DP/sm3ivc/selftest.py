@@ -441,7 +441,7 @@ def test_eq18_eq20_waterfilling():
     ok = ok and worse
     ok = ok and second_derivative(1.0, 1.0, 0.5) > 0
     return _t("式18–20 水填充闭式解与 KKT 最优性", ok,
-              "ε*≈(%.3f, %.3f, %.3f) 与说明书算例一致；2000 个随机可行点均未更优"
+              "ε*≈(%.3f, %.3f, %.3f) 与算例一致；2000 个随机可行点均未更优"
               % tuple(a.eps))
 
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""实施例五（5.4–5.6）：隐私预算的三级管理。
+"""隐私预算的三级管理。
 
     式17  ε_total(T) = √(2T·ln(1/δ′))·ε₀ + T·ε₀·(e^ε₀ − 1)，δ_total = T·δ₀ + δ′
     式18  min Σ 2·u_i·Δ_i²/ε_i²  s.t. Σ ε_i = ε_total，0 < ε_i ≤ ε̄(S_i)
@@ -145,7 +145,7 @@ def advanced_composition(eps0: float, delta0: float, T: int,
 
 
 def basic_composition(eps0: float, delta0: float, T: int) -> tuple:
-    """基本组合 T·ε₀ 作为对照（说明书定理9 中的比较项）。"""
+    """基本组合 T·ε₀ 作为对照（定理9 中的比较项）。"""
     return T * eps0, T * delta0
 
 

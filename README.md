@@ -2,13 +2,13 @@
 
 # Secure Connected-Vehicle Collaboration via SM3 Interwoven Hash Chains and Chain-State-Coupled Adaptive Differential Privacy
 
-> 发明专利申请草案（修订版）的工程化参考实现 · v1.0
+> 技术方案的工程化参考实现 · v1.0
 >
-> Engineering reference implementation of the invention patent draft (revised edition) · v1.0
+> Engineering reference implementation of the technical scheme · v1.0
 
-本程序把专利说明书中的 23 个公式、9 条定理、1 条性质与 1 条命题全部落为可执行代码，并提供图形界面与端到端仿真，可用于方案验证、实验数据采集与答辩演示。全部公式与定理配有 36 项运行期自检，`python run.py --selftest` 可一键复现，当前 **36/36 通过**。
+本程序把设计文档中的 23 个公式、9 条定理、1 条性质与 1 条命题全部落为可执行代码，并提供图形界面与端到端仿真，可用于方案验证、实验数据采集与答辩演示。全部公式与定理配有 36 项运行期自检，`python run.py --selftest` 可一键复现，当前 **36/36 通过**。
 
-This program implements all 23 formulas, 9 theorems, 1 property and 1 proposition from the patent specification as executable code, and provides a graphical interface plus end-to-end simulation for scheme validation, experiment data collection and defense demos. All formulas and theorems are covered by 36 runtime self-tests, reproducible with `python run.py --selftest` — currently **36/36 pass**.
+This program implements all 23 formulas, 9 theorems, 1 property and 1 proposition from the design document as executable code, and provides a graphical interface plus end-to-end simulation for scheme validation, experiment data collection and defense demos. All formulas and theorems are covered by 36 runtime self-tests, reproducible with `python run.py --selftest` — currently **36/36 pass**.
 
 ---
 
@@ -51,7 +51,7 @@ The program prefers the machine's OpenSSL SM3 implementation for speed. Before e
 
 ## 三、公式与定理的代码对照 / Formula–Theorem Code Mapping
 
-| 专利编号 / Ref | 内容 / Content | 代码位置 / Code Location |
+| 公式编号 / Ref | 内容 / Content | 代码位置 / Code Location |
 |---|---|---|
 | 式1 | 信标 R_τ = SM3(R_{τ−1}∥τ∥ID_RSU∥nonce_τ) | `chain.BeaconChain.next_epoch` |
 | 式2 | 数据链 h_t^d | `chain.InterwovenChain.data_head` |
@@ -99,7 +99,7 @@ SM3-IVChain-DP/  (仓库根目录 / repo root)
         ├── chain.py           信标链、交织双链、验证方、MEC 锚定 / beacon chain, interwoven dual chains, verifier, MEC anchoring
         ├── sensitivity.py     式4–6，性质1 / Eqs. 4–6, Property 1
         ├── policy.py          式7，命题1，3.3 决策规则 / Eq. 7, Proposition 1, §3.3 decision rules
-        ├── dp.py              式8–14（核心发明点）/ Eqs. 8–14 (core invention)
+        ├── dp.py              式8–14（核心算法）/ Eqs. 8–14 (core invention)
         ├── layered.py         式15–16，定理8 / Eqs. 15–16, Thm 8
         ├── budget.py          式17–21，水填充与预算会计 / Eqs. 17–21, water-filling & budget accounting
         ├── shamir.py          Shamir(t,n) 门限秘密分享 / threshold secret sharing
@@ -114,7 +114,7 @@ SM3-IVChain-DP/  (仓库根目录 / repo root)
 
 ## 五、实现说明 / Implementation Notes
 
-工程实现中有几处必须把说明书的文字表述精确化，这些选择均已在代码注释中标注，并各有对应自检项可复现。Several points in the specification required precise engineering decisions; these are annotated in code comments and each has a reproducible self-test:
+工程实现中有几处必须把设计文档的文字表述精确化，这些选择均已在代码注释中标注，并各有对应自检项可复现。Several points in the design document required precise engineering decisions; these are annotated in code comments and each has a reproducible self-test:
 
 1. **拼接运算符 ∥ 的实现 / Injective ∥ encoding.** 直接字节串拼接存在歧义（`"ab"∥"c"` 与 `"a"∥"bc"` 相同），会削弱定理 1 的抗碰撞归约。`codec.cat` 为每个分量加 4 字节长度前缀，使编码单射。Plain concatenation is ambiguous (`"ab"∥"c"` equals `"a"∥"bc"`), weakening the collision-resistance reduction of Theorem 1. `codec.cat` prefixes each component with its 4-byte length, making the encoding injective.
 
@@ -158,16 +158,16 @@ SM3-IVChain-DP/  (仓库根目录 / repo root)
 | 少加噪声(虚标ε) / Noise under-injection (fake ε) | 30 | 0 | 0 | 0 | **13** |
 | 以加噪为名的定向投毒 / Directed poisoning disguised as noise | 30 | 0 | 1 | 10 | **15** |
 
-该表是专利核心论点的实证：**"少加噪"与"伪装投毒"在链通道上完全无异常表现，只有链态耦合带来的门限追责审计能够稳定检出**；其整体检出率等于抽检率，而条件检出率恒为 1（`python run.py --cli` 可复现）。
-This table empirically supports the patent's core claim: **noise under-injection and disguised poisoning show no anomaly on the chain channel at all — only the threshold accountability audit enabled by chain-state coupling can reliably detect them**; overall detection equals the audit sampling rate, while conditional detection is always 1 (reproducible with `python run.py --cli`).
+该表是核心结论的实证：**"少加噪"与"伪装投毒"在链通道上完全无异常表现，只有链态耦合带来的门限追责审计能够稳定检出**；其整体检出率等于抽检率，而条件检出率恒为 1（`python run.py --cli` 可复现）。
+This table empirically supports the core claim: **noise under-injection and disguised poisoning show no anomaly on the chain channel at all — only the threshold accountability audit enabled by chain-state coupling can reliably detect them**; overall detection equals the audit sampling rate, while conditional detection is always 1 (reproducible with `python run.py --cli`).
 
 ---
 
 ## 七、免责说明 / Disclaimer
 
-本程序为技术方案的可运行原型，用于验证公式自洽性与机制可行性。其中门限同态加密、安全多方计算与零知识证明部分按说明书 4.4 节以承诺—开示流程做了简化占位；若要用于实车部署，需替换为经认证的国密算法库与密码硬件，并按 GB/T 38635—2020 等标准完成合规性测评。
+本程序为技术方案的可运行原型，用于验证公式自洽性与机制可行性。其中门限同态加密、安全多方计算与零知识证明部分按设计文档 4.4 节以承诺—开示流程做了简化占位；若要用于实车部署，需替换为经认证的国密算法库与密码硬件，并按 GB/T 38635—2020 等标准完成合规性测评。
 
-This program is a runnable prototype of a technical scheme, intended to validate formula consistency and mechanism feasibility. Threshold homomorphic encryption, secure multi-party computation and zero-knowledge proofs are simplified as commitment–disclosure placeholders per §4.4 of the specification. For real vehicle deployment, they must be replaced with certified national-cryptography libraries and cryptographic hardware, with compliance testing per GB/T 38635—2020 and related standards.
+This program is a runnable prototype of a technical scheme, intended to validate formula consistency and mechanism feasibility. Threshold homomorphic encryption, secure multi-party computation and zero-knowledge proofs are simplified as commitment–disclosure placeholders per §4.4 of the design document. For real vehicle deployment, they must be replaced with certified national-cryptography libraries and cryptographic hardware, with compliance testing per GB/T 38635—2020 and related standards.
 
 ---
 

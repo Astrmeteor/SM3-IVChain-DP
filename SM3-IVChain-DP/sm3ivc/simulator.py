@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""实施例八：车—路—边—云端到端仿真引擎。
+"""车—路—边—云端到端仿真引擎。
 
 单轮闭环：
   信标推进(式1) → 预算水填充(式20) → 车端敏感度分级(式4-6) → 策略选择(式7)
@@ -219,7 +219,7 @@ class Simulator:
             dec = select(S, v.ctx)
             policy = dec.policy.name if dec.policy else "延迟上传"
             if dec.policy is None:
-                # 强度底线仍不可行：延迟上传或仅上传承诺值（说明书 3.3 节）
+                # 强度底线仍不可行：延迟上传或仅上传承诺值（设计文档 3.3 节）
                 n_delayed += 1
                 chain_results[v.vid] = (True, [])
                 continue
@@ -283,7 +283,7 @@ class Simulator:
             S_up = meta_all.get(res.vid, {}).get('S', 0)
             # 通道(d)：链/统计告警触发审计；此外对高敏感数据按 audit_rate 抽检。
             # 抽检是"少加噪"与"伪装投毒"能被检出的关键——这两类攻击
-            # 在通道(a)(b)(c) 上均无异常表现（见说明书 6.2(d) 与定理6、7）。
+            # 在通道(a)(b)(c) 上均无异常表现（见设计文档 6.2(d) 与定理6、7）。
             spot = (self.rng.random() < cfg.audit_rate * (2.0 if S_up >= 2 else 1.0))
             if res.flagged or spot:
                 try:
